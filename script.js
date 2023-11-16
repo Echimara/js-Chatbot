@@ -38,10 +38,12 @@ const generateResponse = (chatElement) => {
     // Send POST request to API, get response and set the reponse as paragraph text
     fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
         messageElement.textContent = data.choices[0].message.content.trim();
-    }).catch(() => {
-        messageElement.classList.add("error");
-        messageElement.textContent = "Oops! Something went wrong. Please try again.";
-    }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
+    }).catch(error => {
+    console.error("Error:", error);
+    messageElement.classList.add("error");
+    messageElement.textContent = "Oops! Something went wrong. Please try again.";
+})
+.finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
 }
 
 const handleChat = () => {
